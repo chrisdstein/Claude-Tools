@@ -2,11 +2,19 @@ import { google } from 'googleapis';
 import { OAuth2Client } from 'google-auth-library';
 import fs from 'fs/promises';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import { EmailOptions, CredentialsFile, TokenInfo } from './types.js';
 
+// Get the directory of the current module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Resolve paths relative to the project root (one level up from dist)
+const PROJECT_ROOT = path.resolve(__dirname, '..');
+
 const SCOPES = ['https://www.googleapis.com/auth/gmail.send'];
-const TOKEN_PATH = path.join(process.cwd(), 'credentials', 'token.json');
-const CREDENTIALS_PATH = path.join(process.cwd(), 'credentials.json');
+const TOKEN_PATH = path.join(PROJECT_ROOT, 'credentials', 'token.json');
+const CREDENTIALS_PATH = path.join(PROJECT_ROOT, 'credentials.json');
 
 /**
  * Gmail client for sending emails via Gmail API
