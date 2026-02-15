@@ -63,9 +63,12 @@ export class GmailClient {
    */
   private async loadCredentials(): Promise<CredentialsFile> {
     try {
+      console.error(`[Gmail MCP] Looking for credentials at: ${CREDENTIALS_PATH}`);
+      console.error(`[Gmail MCP] Project root is: ${PROJECT_ROOT}`);
       const content = await fs.readFile(CREDENTIALS_PATH, 'utf-8');
       return JSON.parse(content);
     } catch (error) {
+      console.error(`[Gmail MCP] Error reading credentials: ${error}`);
       throw new Error(
         'credentials.json not found. Please create OAuth2 credentials in Google Cloud Console and save to credentials.json'
       );
